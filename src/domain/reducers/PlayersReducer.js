@@ -1,40 +1,47 @@
-import {ADD_PLAYER} from "../ActionTypes";
+import {loop, Cmd} from "redux-loop";
+import {
+    ADD_PLAYER, ADD_PLAYER_ERROR,
+    ADD_PLAYER_SUCCESS,
+    DATA_LOADED,
+    onAddPlayerError,
+    onAddPlayerSuccess,
+} from "../actions";
 
-const playerss = [
-    {
-        id: "123",
-        number: "0",
-        name: "Josh",
-        wins: 10,
-        losses: 10,
-        winRate: "20%"
-    },
-    {
-        id: "1234",
-        number: "1",
-        name: "Bob",
-        wins: 10,
-        losses: 10,
-        winRate: "20%"
-    }
-];
+const tryAddPlayer = name =>
+    fetch('/addPlayer', { method: 'POST', body: JSON.stringify({ name }) })
+        .then(res => res.json());
 
-const PlayersReducer = (state = playerss, action) => {
-    console.log(action.type);
+const PlayersReducer = (state = [], action) => {
     switch (action.type) {
+
+        case DATA_LOADED:
+            const { players } = action.data;
+            console.log(action.data);
+            return players.map(player => ({
+                ...player,
+                number: 0,
+                winRate: player.wins / (player.wins + player.losses)
+            }));
+
         case ADD_PLAYER:
-            return [
-                ...state,
-                {
-                    id: "" + Math.random(),
-                    number: 0,
-                    name: action.name,
-                    wins: 0,
-                    losses: 0,
-                    winRate: "0%"
-                }
-            ];
-        default: return state;
+            return loop(
+                state,
+                Cmd.run(tryAddPlayer, {
+                    successActionCreator: onAddPlayerSuccess,
+                    failActionCreator: onAddPlayerError,
+                    args: [action.name]
+                })
+            );
+
+        case ADD_PLAYER_SUCCESS:
+            const { player } = action;
+            return { ...state, player };
+
+        case ADD_PLAYER_ERROR:
+            return state;
+
+        default:
+            return state;
     }
 };
 

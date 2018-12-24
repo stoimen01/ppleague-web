@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {addPlayer} from "../domain/actions";
+import {onAddPlayer} from "../domain/actions";
 
 class PlayerForm extends React.Component {
 
@@ -48,4 +48,4 @@ class PlayerForm extends React.Component {
     }
 }
 
-export default connect(null, { addPlayer })(PlayerForm);
+export default connect(null, { addPlayer: onAddPlayer })(PlayerForm);

@@ -1,7 +1,7 @@
 import React from 'react';
 import {getGames} from "../domain/selectors";
 import {connect} from "react-redux";
-import {removeGame} from "../domain/actions";
+import {onRemoveGame} from "../domain/actions";
 
 const GamesTable = ({games, removeGame}) => {
 
@@ -42,4 +42,4 @@ const GamesTable = ({games, removeGame}) => {
 
 export default connect(state => ({
     games: getGames(state)
-}), { removeGame })(GamesTable);
+}), { removeGame: onRemoveGame })(GamesTable);

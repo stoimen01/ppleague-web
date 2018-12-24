@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {addGame} from "../domain/actions";
+import {onAddGame} from "../domain/actions";
 import {connect} from "react-redux";
 import {getPlayers} from "../domain/selectors";
 
@@ -112,4 +112,4 @@ class GameForm extends Component {
     }
 }
 
-export default connect( state => ({ players: getPlayers(state) }) , { addGame })(GameForm);
+export default connect( state => ({ players: getPlayers(state) }) , { addGame: onAddGame })(GameForm);
