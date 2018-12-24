@@ -22,7 +22,18 @@ const playerss = [
 const PlayersReducer = (state = playerss, action) => {
     console.log(action.type);
     switch (action.type) {
-        case ADD_PLAYER: return state;
+        case ADD_PLAYER:
+            return [
+                ...state,
+                {
+                    id: "" + Math.random(),
+                    number: 0,
+                    name: action.name,
+                    wins: 0,
+                    losses: 0,
+                    winRate: "0%"
+                }
+            ];
         default: return state;
     }
 };

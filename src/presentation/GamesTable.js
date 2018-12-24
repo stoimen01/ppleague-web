@@ -12,11 +12,11 @@ const GamesTable = ({games, removeGame}) => {
             <table>
                 <thead>
                 <tr>
-                    <th colSpan={6}>Latest games</th>
+                    <th className="table-headline" colSpan={7}>Latest games</th>
                 </tr>
                 <tr>
                     <th>#</th>
-                    <th colSpan={4}>Scores</th>
+                    <th colSpan={5}>Scores</th>
                     <th> </th>
                 </tr>
                 </thead>
@@ -27,6 +27,7 @@ const GamesTable = ({games, removeGame}) => {
                             <td>{number}</td>
                             <td>{player1Name}</td>
                             <td>{player1Score}</td>
+                            <td>-</td>
                             <td>{player2Score}</td>
                             <td>{player2Name}</td>
                             <td><input type="button" value="Remove" onClick={ onRemove(id) }/></td>

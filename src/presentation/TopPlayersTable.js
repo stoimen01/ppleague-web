@@ -7,7 +7,7 @@ const TopFiveTable = ({players}) => (
         <table>
             <thead>
             <tr>
-                <th colSpan={5}>Top 5</th>
+                <th className="table-headline" colSpan={5}>Ranking</th>
             </tr>
             <tr>
                 <th>#</th>

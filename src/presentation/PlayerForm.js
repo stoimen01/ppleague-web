@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {addPlayer} from "../domain/actions";
-import './PlayerForm.css';
 
 class PlayerForm extends React.Component {
 
@@ -16,7 +15,7 @@ class PlayerForm extends React.Component {
 
     onNameChange = (event) => {
         const { value } = event.target;
-        const nameRegex = /[a-zA-Z0-9]{2,20}/;
+        const nameRegex = /^[a-zA-Z0-9]{3,20}$/;
         this.setState({
             name: value,
             isEnabled: nameRegex.test(value)
@@ -25,9 +24,8 @@ class PlayerForm extends React.Component {
 
     onAddPlayerClick = () => {
         const { name, isEnabled } = this.state;
-        if (isEnabled) {
-            this.props.addPlayer(name)
-        }
+        if (!isEnabled) return;
+        this.props.addPlayer(name)
     };
 
     render() {
@@ -43,7 +41,7 @@ class PlayerForm extends React.Component {
                         value={name}
                         placeholder="player name"
                         onChange={this.onNameChange}/>
-                    <input type="button" value="Submit" onClick={this.onAddPlayerClick} disabled={!isEnabled}/>
+                    <input type="button" value="Add Player" onClick={this.onAddPlayerClick} disabled={!isEnabled}/>
                 </form>
             </div>
         )
