@@ -1,35 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Root from "./presentation/Root";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import AppReducer from "./domain/reducers/AppReducer";
 import './index.css';
-import TopFiveTable from "./TopFiveTable";
 
-class App extends React.Component {
-    render() {
-        const players = [
-            {
-                id: "123",
-                number: "0",
-                name: "Josh",
-                wins: 10,
-                losses: 10,
-                winRate: "20%"
-            },
-            {
-                id: "1234",
-                number: "1",
-                name: "Bob",
-                wins: 10,
-                losses: 10,
-                winRate: "20%"
-            }
-        ];
-
-        return (
-          <div>
-              <TopFiveTable players={players}/>
-          </div>
-        );
-    }
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Provider store={createStore(AppReducer)}>
+        <Root />
+    </Provider>,
+    document.getElementById('root')
+);
