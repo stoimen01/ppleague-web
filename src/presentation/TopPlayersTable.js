@@ -1,5 +1,5 @@
 import React from 'react';
-import {getPlayers} from "../domain/selectors";
+import {getPlayers, getTop5} from "../domain/selectors";
 import {connect} from "react-redux";
 
 const TopFiveTable = ({players}) => (
@@ -25,7 +25,7 @@ const TopFiveTable = ({players}) => (
                         <td>{name}</td>
                         <td>{wins}</td>
                         <td>{losses}</td>
-                        <td>{winRate}</td>
+                        <td>{winRate + " %"}</td>
                     </tr>
                 )
             }
@@ -35,5 +35,5 @@ const TopFiveTable = ({players}) => (
 );
 
 export default connect(state => ({
-    players: getPlayers(state)
+    players: getTop5(state)
 }))(TopFiveTable);

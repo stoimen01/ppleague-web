@@ -10,8 +10,11 @@ import {
 } from "../actions";
 
 const tryAddGame = (data) =>
-    fetch('/addGame', { method: 'POST', body: JSON.stringify(data) })
-        .then(res => res.json());
+    fetch('/addGame', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    }).then(res => res.json());
 
 const GamesReducer = (state = [], action) => {
     switch (action.type) {
@@ -20,6 +23,7 @@ const GamesReducer = (state = [], action) => {
             return action.data.games;
 
         case ADD_GAME:
+            console.log("adding game" + action.data);
             return loop(
                 state,
                 Cmd.run(tryAddGame, {

@@ -45,13 +45,13 @@ export const onAddGame = (player1Id, player1Score, player2Id, player2Score) => (
     }
 });
 
-export const ADD_GAME_SUCCESS = 'ADD_PLAYER_SUCCESS';
+export const ADD_GAME_SUCCESS = 'ADD_GAME_SUCCESS';
 export const onAddGameSuccess = data => ({
     type: ADD_GAME_SUCCESS,
     data
 });
 
-export const ADD_GAME_ERROR = 'ADD_PLAYER_SUCCESS';
+export const ADD_GAME_ERROR = 'ADD_GAME_ERROR';
 export const onAddGameError = err => ({
     type: ADD_GAME_ERROR,
     err

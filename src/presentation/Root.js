@@ -27,6 +27,7 @@ class Root extends Component {
             </div>
         );
     }
+
 }
 
 export default connect(null, { onInit })(Root);

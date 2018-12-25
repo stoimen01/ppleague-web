@@ -14,6 +14,10 @@ h1 {
     color: #165146;
 }
 
+tbody {
+    padding: 10px;
+}
+
 table {
     width: 100%;
 }

@@ -4,6 +4,8 @@ import {onAddPlayer} from "../domain/actions";
 
 class PlayerForm extends React.Component {
 
+    nameRegex = /^[\w]{3,20}$/;
+
     constructor(props) {
         super(props);
         this.initialState = {
@@ -15,17 +17,17 @@ class PlayerForm extends React.Component {
 
     onNameChange = (event) => {
         const { value } = event.target;
-        const nameRegex = /^[a-zA-Z0-9]{3,20}$/;
         this.setState({
             name: value,
-            isEnabled: nameRegex.test(value)
+            isEnabled: this.nameRegex.test(value)
         });
     };
 
     onAddPlayerClick = () => {
         const { name, isEnabled } = this.state;
         if (!isEnabled) return;
-        this.props.addPlayer(name)
+        this.props.onAddPlayer(name);
+        this.setState(this.initialState);
     };
 
     render() {
@@ -33,19 +35,21 @@ class PlayerForm extends React.Component {
         return (
             <div className="component">
                 <form>
-                    <label htmlFor="add">Add player</label>
+                    <label>Add player</label>
                     <input
-                        id="add"
                         type="text"
-                        name="name"
                         value={name}
                         placeholder="player name"
                         onChange={this.onNameChange}/>
-                    <input type="button" value="Add Player" onClick={this.onAddPlayerClick} disabled={!isEnabled}/>
+                    <input
+                        type="button"
+                        value="Add Player"
+                        onClick={this.onAddPlayerClick}
+                        disabled={!isEnabled}/>
                 </form>
             </div>
         )
     }
 }
 
-export default connect(null, { addPlayer: onAddPlayer })(PlayerForm);
+export default connect(null, { onAddPlayer })(PlayerForm);
