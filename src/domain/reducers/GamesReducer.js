@@ -23,7 +23,6 @@ const GamesReducer = (state = [], action) => {
             return action.data.games;
 
         case ADD_GAME:
-            console.log("adding game" + action.data);
             return loop(
                 state,
                 Cmd.run(tryAddGame, {

@@ -19,13 +19,13 @@ const TopFiveTable = ({players}) => (
             </thead>
             <tbody>
             {
-                players.map(({ id, number, name, wins, losses, winRate }) =>
+                players.map(({ id, number, name, wins, losses, winRate }, i) =>
                     <tr key={id}>
-                        <td>{number}</td>
+                        <td>{i + 1}</td>
                         <td>{name}</td>
                         <td>{wins}</td>
                         <td>{losses}</td>
-                        <td>{winRate + " %"}</td>
+                        <td>{winRate.toFixed(0) + " %"}</td>
                     </tr>
                 )
             }

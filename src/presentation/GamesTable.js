@@ -1,6 +1,7 @@
 import React from 'react';
-import {getGames} from "../domain/selectors";
+import {getLatestGames, getPlayers} from "../domain/selectors";
 import {connect} from "react-redux";
+import { ReactComponent as IconRemove } from '../ic-close.svg';
 import {onRemoveGame} from "../domain/actions";
 
 const GamesTable = ({games, removeGame}) => {
@@ -22,15 +23,15 @@ const GamesTable = ({games, removeGame}) => {
                 </thead>
                 <tbody>
                 {
-                    games.map(({ id, number, player1Name, player1Score, player2Name, player2Score }) =>
+                    games.map(({ id, number, player1Name, player1Score, player2Name, player2Score }, i) =>
                         <tr key={id}>
-                            <td>{number}</td>
+                            <td>{i + 1}</td>
                             <td>{player1Name}</td>
                             <td>{player1Score}</td>
                             <td>-</td>
                             <td>{player2Score}</td>
                             <td>{player2Name}</td>
-                            <td><input type="button" value="Remove" onClick={ onRemove(id) }/></td>
+                            <td> <IconRemove onClick={ onRemove(id) } /> </td>
                         </tr>
                     )
                 }
@@ -41,5 +42,6 @@ const GamesTable = ({games, removeGame}) => {
 };
 
 export default connect(state => ({
-    games: getGames(state)
+    games: getLatestGames(state),
+    players: getPlayers(state)
 }), { removeGame: onRemoveGame })(GamesTable);

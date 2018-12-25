@@ -32,7 +32,7 @@ class GameForm extends Component {
         const result = this.validate(this.state);
         if (!result) return;
         const [player1, player2, player1Score, player2Score] = result;
-        this.props.onAddGame(player1.id, player2.id, parseInt(player1Score), parseInt(player2Score));
+        this.props.onAddGame(player1.id, parseInt(player1Score), player2.id, parseInt(player2Score));
         this.setState(this.initialState);
     };
 
@@ -44,10 +44,10 @@ class GameForm extends Component {
             player1Score.length > 0 &&
             player2Score.length > 0) ||
             player1Name === player2Name ||
+            player1Score === player2Score ||
             !(scoreRegex.test(player1Score) && scoreRegex.test(player2Score))
         ) {
-            state.isEnabled = false;
-            this.setState(state);
+            this.setState({...state, isEnabled: false});
             return;
         }
 
@@ -56,13 +56,11 @@ class GameForm extends Component {
         const player2 = players.find((player) => player2Name === player.name);
 
         if (!(player1 && player2)) {
-            state.isEnabled = false;
-            this.setState(state);
+            this.setState({...state, isEnabled: false});
             return;
         }
 
-        state.isEnabled = true;
-        this.setState(state);
+        this.setState({...state, isEnabled: true});
         return [player1, player2, player1Score, player2Score]
     }
 
@@ -82,6 +80,7 @@ class GameForm extends Component {
                                     type="text"
                                     name="player1Name"
                                     placeholder="player name"
+                                    value={this.state.player1Name}
                                     onChange={this.onFieldChange} />
                             </td>
                             <td>vs</td>
@@ -90,6 +89,7 @@ class GameForm extends Component {
                                     type="text"
                                     name="player2Name"
                                     placeholder="player name"
+                                    value={this.state.player2Name}
                                     onChange={this.onFieldChange} />
                             </td>
                         </tr>
@@ -102,6 +102,7 @@ class GameForm extends Component {
                                     type="text"
                                     name="player1Score"
                                     placeholder={this.state.player1Name + " score"}
+                                    value={this.state.player1Score}
                                     onChange={this.onFieldChange} />
                             </td>
                             <td>-</td>
@@ -110,6 +111,7 @@ class GameForm extends Component {
                                     type="text"
                                     name="player2Score"
                                     placeholder={this.state.player2Name + " score"}
+                                    value={this.state.player2Score}
                                     onChange={this.onFieldChange} />
                             </td>
                         </tr>

@@ -98,3 +98,7 @@ input[type=button]:disabled {
     background: #e6fffd;
     font-size: 1.2em;
 }
+
+.remove-icon {
+    color: red;
+}
