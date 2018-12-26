@@ -16,22 +16,23 @@ class AutoTextInput extends Component{
         };
         this.state = this.initialState;
     }
+    
+    filterSuggestions(input) {
+        const { suggestions } = this.props;
+        return suggestions.filter(suggestion =>
+            suggestion.toLowerCase().indexOf(input.toLowerCase()) > -1
+        );
+    }
 
     onInputChange = e => {
-        const { suggestions } = this.props;
         const { value } = e.target;
-
-        const filteredSuggestions = suggestions.filter(suggestion =>
-            suggestion.toLowerCase().indexOf(value.toLowerCase()) > -1
-        );
-
+        const filteredSuggestions = this.filterSuggestions(value);
         this.setState({
             inputValue: value,
             shouldShowSuggestions: filteredSuggestions.length > 0,
             filteredSuggestions,
             selectedSuggestion: 0
         });
-
         this.props.onChange(e);
     };
 
@@ -65,29 +66,24 @@ class AutoTextInput extends Component{
     };
 
     onSelect = e => {
-
-        const newState = {
+        const text = e.currentTarget.innerText;
+        this.setState({
             ...this.state,
-            inputValue: e.currentTarget.innerText,
+            inputValue: text,
             shouldShowSuggestions: false,
             selectedSuggestion: 0
-        };
-
-        this.setState(newState);
-
-        e.target.name = this.props.name;
-        e.target.value = e.currentTarget.innerText;
-        this.props.onChange(e);
+        });
+        this.props.onChange({
+            target: {
+                name: this.props.name,
+                value: text
+            }
+        });
     };
 
     onFocus = () => {
-        const { suggestions } = this.props;
         const value = this.state.inputValue;
-
-        const filteredSuggestions = suggestions.filter(suggestion =>
-            suggestion.toLowerCase().indexOf(value.toLowerCase()) > -1
-        );
-
+        const filteredSuggestions = this.filterSuggestions(value);
         this.setState({
             shouldShowSuggestions: filteredSuggestions.length > 0,
             filteredSuggestions,

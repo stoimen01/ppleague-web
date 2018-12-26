@@ -1,32 +1,18 @@
 import {Cmd, loop} from "redux-loop";
 import {
+    ADD_GAME,
+    ADD_GAME_ERROR,
+    ADD_GAME_SUCCESS,
     DATA_LOADED,
-    ADD_GAME, ADD_GAME_SUCCESS, ADD_GAME_ERROR,
-    REMOVE_GAME, REMOVE_GAME_SUCCESS, REMOVE_GAME_ERROR,
-    onAddGameSuccess, onAddGameError,
-    onRemoveGameSuccess, onRemoveGameError
+    onAddGameError,
+    onAddGameSuccess,
+    REMOVE_GAME,
+    REMOVE_GAME_ERROR,
+    REMOVE_GAME_SUCCESS,
+    onRemoveGameError,
+    onRemoveGameSuccess,
 } from "../actions";
-
-const tryAddGame = data => {
-    const options = {
-        method: 'POST',
-        headers: { "Content-Type": "application/json"},
-        body: JSON.stringify(data)
-    };
-    return fetch('/addGame', options)
-        .then(res => res.json());
-};
-
-
-const tryRemoveGame = id => {
-    const options = {
-        method: 'POST',
-        headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({ gameId: id })
-    };
-    return fetch('/removeGame', options)
-        .then(res => res.json());
-};
+import {tryAddGame, tryRemoveGame} from "../commands";
 
 const GamesReducer = (state = [], action) => {
     switch (action.type) {

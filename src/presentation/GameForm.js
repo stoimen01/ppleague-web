@@ -87,12 +87,13 @@ class GameForm extends Component {
                             </td>
                             <td>vs</td>
                             <td>
-                                <input
-                                    type="text"
+                                <AutoTextInput
                                     name="player2Name"
-                                    placeholder="player name"
+                                    placeholder={"player name"}
                                     value={this.state.player2Name}
-                                    onChange={this.onFieldChange} />
+                                    onChange={this.onFieldChange}
+                                    suggestions={this.props.players.map((player) => player.name)}
+                                />
                             </td>
                         </tr>
                         <tr>
