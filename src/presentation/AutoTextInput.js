@@ -4,19 +4,30 @@ const KEY_CODE_ENTER = 13;
 const KEY_CODE_UP = 38;
 const KEY_CODE_DOWN = 40;
 
+function initialStateOf(props) {
+    return {
+        inputValue: props.value,
+        shouldShowSuggestions: false,
+        filteredSuggestions: props.suggestions,
+        selectedSuggestion: 0
+    };
+}
+
 class AutoTextInput extends Component{
 
     constructor(props) {
         super(props);
-        this.initialState = {
-            inputValue: props.value,
-            shouldShowSuggestions: false,
-            filteredSuggestions: props.suggestions,
-            selectedSuggestion: 0
-        };
+        this.initialState = initialStateOf(props);
         this.state = this.initialState;
     }
-    
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.value !== prevProps.value) {
+            this.initialState = initialStateOf(this.props);
+            this.setState(this.initialState);
+        }
+    }
+
     filterSuggestions(input) {
         const { suggestions } = this.props;
         return suggestions.filter(suggestion =>
