@@ -5,13 +5,13 @@ export const onInit = () => ({
 });
 
 export const DATA_LOADED = 'DATA_LOADED';
-export const onDataLoaded = (data) => ({
+export const onDataLoaded = data => ({
     type: DATA_LOADED,
     data: data
 });
 
 export const DATA_LOAD_FAIL = 'DATA_LOAD_FAIL';
-export const onDataLoadError = (err) => ({
+export const onDataLoadError = err => ({
     type: DATA_LOAD_FAIL,
     err
 });
@@ -58,7 +58,19 @@ export const onAddGameError = err => ({
 });
 
 export const REMOVE_GAME = 'REMOVE_GAME';
-export const onRemoveGame = (id) => ({
+export const onRemoveGame = id => ({
     type: REMOVE_GAME,
     id
+});
+
+export const REMOVE_GAME_SUCCESS = 'REMOVE_GAME_SUCCESS';
+export const onRemoveGameSuccess = data => ({
+    type: REMOVE_GAME_SUCCESS,
+    data
+});
+
+export const REMOVE_GAME_ERROR = 'REMOVE_GAME_ERROR';
+export const onRemoveGameError = err => ({
+    type: REMOVE_GAME_ERROR,
+    err
 });

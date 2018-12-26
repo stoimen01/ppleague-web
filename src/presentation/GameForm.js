@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {onAddGame} from "../domain/actions";
 import {connect} from "react-redux";
 import {getPlayers} from "../domain/selectors";
+import AutoTextInput from "./AutoTextInput";
 
 const scoreRegex = /^\d{1,3}$/;
 
@@ -70,18 +71,19 @@ class GameForm extends Component {
                 <table>
                     <thead>
                         <tr>
-                            <th colSpan={3}>Players</th>
+                            <th colSpan={3}>Add Game</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <input
-                                    type="text"
+                                <AutoTextInput
                                     name="player1Name"
-                                    placeholder="player name"
+                                    placeholder={"player name"}
                                     value={this.state.player1Name}
-                                    onChange={this.onFieldChange} />
+                                    onChange={this.onFieldChange}
+                                    suggestions={this.props.players.map((player) => player.name)}
+                                />
                             </td>
                             <td>vs</td>
                             <td>
@@ -92,9 +94,6 @@ class GameForm extends Component {
                                     value={this.state.player2Name}
                                     onChange={this.onFieldChange} />
                             </td>
-                        </tr>
-                        <tr>
-                            <th colSpan={3}>Scores</th>
                         </tr>
                         <tr>
                             <td>

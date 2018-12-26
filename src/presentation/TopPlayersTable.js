@@ -1,5 +1,5 @@
 import React from 'react';
-import {getPlayers, getTop5} from "../domain/selectors";
+import {getTop5} from "../domain/selectors";
 import {connect} from "react-redux";
 
 const TopFiveTable = ({players}) => (

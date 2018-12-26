@@ -35,7 +35,7 @@ class PlayerForm extends React.Component {
         return (
             <div className="component">
                 <form>
-                    <label>Add player</label>
+                    <label className="bold-font">Add Player</label>
                     <input
                         type="text"
                         value={name}

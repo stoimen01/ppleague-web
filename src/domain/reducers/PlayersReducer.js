@@ -5,7 +5,7 @@ import {
     ADD_PLAYER_SUCCESS,
     DATA_LOADED,
     onAddPlayerError,
-    onAddPlayerSuccess,
+    onAddPlayerSuccess, REMOVE_GAME_SUCCESS,
 } from "../actions";
 
 const tryAddPlayer = name =>
@@ -50,7 +50,7 @@ const PlayersReducer = (state = [], action) => {
         case ADD_PLAYER_ERROR:
             return state;
 
-        case ADD_GAME_SUCCESS:
+        case ADD_GAME_SUCCESS: {
             const { player1, player2 } = action.data;
             const player1Index = state.findIndex(player => player.id === player1.id);
             const player2Index = state.findIndex(player => player.id === player2.id);
@@ -60,6 +60,19 @@ const PlayersReducer = (state = [], action) => {
             playersCopy[player2Index] = addWinRate(player2);
 
             return playersCopy;
+        }
+
+        case REMOVE_GAME_SUCCESS: {
+            const { player1, player2 } = action.data;
+            const player1Index = state.findIndex(player => player.id === player1.id);
+            const player2Index = state.findIndex(player => player.id === player2.id);
+
+            const playersCopy = state.slice(0);
+            playersCopy[player1Index] = addWinRate(player1);
+            playersCopy[player2Index] = addWinRate(player2);
+
+            return playersCopy;
+        }
 
         default:
             return state;
